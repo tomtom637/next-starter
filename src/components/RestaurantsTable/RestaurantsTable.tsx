@@ -1,13 +1,21 @@
 "use client";
-import { cn } from "@/lib/utils";
+
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
 import {
   type Table as TTable,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
+// TYPES
+import type { TableData } from "./useRestaurantsTableColumns";
+
+// HOOKS
+import useRestaurantsTableColumns from "./useRestaurantsTableColumns";
+
+// COMPONENTS
 import {
   Table,
   TableBody,
@@ -17,23 +25,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-// TYPES
-import type { Post } from "@/app/posts/page";
+export default function RestaurantsTable() {
+  const { columnDef, tableData } = useRestaurantsTableColumns();
 
-// QUERIES
-import { getPosts } from "@/queries/post";
-
-// UTILS
-import { columnDef } from "./columnDef";
-
-export default function Posts() {
-  const { data: posts } = useQuery({ queryKey: ["posts"], queryFn: getPosts });
-
-  const columnsMemo = useMemo(() => columnDef, []);
   const table = useReactTable({
-    columns: columnsMemo,
-    data: posts?.data || [],
-    getCoreRowModel: getCoreRowModel<Post>(),
+    columns: columnDef,
+    data: tableData,
+    getCoreRowModel: getCoreRowModel<TableData>(),
     columnResizeMode: "onChange",
   });
 
@@ -132,7 +130,7 @@ export default function Posts() {
           ) : (
             <TableRow>
               <TableCell
-                colSpan={columnsMemo.length}
+                colSpan={columnDef.length}
                 className="h-24 text-center"
               >
                 No results.

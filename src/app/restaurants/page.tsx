@@ -5,35 +5,27 @@ import {
 } from "@tanstack/react-query";
 
 // QUERIES
-import { getPosts } from "@/queries/post";
+import { getRestaurants } from "@/queries/restaurants";
 
 // COMPONENTS
 import Container from "@/components/layout/Container/Container";
-import Posts from "@/components/Posts/Posts";
-
-export type Post = {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-};
+import RestaurantsTable from "@/components/RestaurantsTable/RestaurantsTable";
 
 export default async function PostsPage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["restaurants"],
+    queryFn: getRestaurants,
   });
 
   return (
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Container>
-          <h1>Posts page</h1>
+          <h1>Restaurant page</h1>
           <br />
-          <Posts />
+          <RestaurantsTable />
         </Container>
       </HydrationBoundary>
     </main>

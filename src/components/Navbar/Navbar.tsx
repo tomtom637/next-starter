@@ -39,6 +39,9 @@ export default function Navbar() {
           <li>
             <NavLink href="/posts">Posts</NavLink>
           </li>
+          <li>
+            <NavLink href="/restaurants">Restaurants</NavLink>
+          </li>
         </ul>
         <ThemeToggle />
       </Container>
