@@ -37,9 +37,6 @@ export default function Navbar() {
             <NavLink href="/">Home</NavLink>
           </li>
           <li>
-            <NavLink href="/posts">Posts</NavLink>
-          </li>
-          <li>
             <NavLink href="/restaurants">Restaurants</NavLink>
           </li>
         </ul>
